@@ -26,7 +26,7 @@
 #include<opencv2/core/core.hpp>
 
 #include<System.h>
-#include<Stats.h>
+#include<Stats/TrackingStats.h>
 
 using namespace std;
 
@@ -218,7 +218,7 @@ int main(int argc, char **argv)
 
     // Stop all threads
     SLAM.Shutdown();
-    Stats::saveStats(strStatsFile);
+    TrackingStats::getInstance().saveStats(strStatsFile);
 
     // Tracking time statistics
 

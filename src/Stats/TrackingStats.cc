@@ -1,37 +1,37 @@
-#include "Stats.h"
+#include "Stats/TrackingStats.h"
 #include <sstream>  
 
 using namespace std;
 
-std::vector<std::pair<long unsigned int, double>> Stats::tracking_time;
-std::vector<std::pair<long unsigned int, double>> Stats::orbExtraction_time;
-std::vector<std::pair<long unsigned int, double>> Stats::stereoMatch_time;
-std::vector<std::pair<long unsigned int, double>> Stats::trackWithMotionModel_time;
-std::vector<std::pair<long unsigned int, double>> Stats::TWM_poseEstimation_time;
-std::vector<std::pair<long unsigned int, double>> Stats::TWM_poseOptimization_time;
-std::vector<std::pair<long unsigned int, double>> Stats::relocalization_time;
-std::vector<std::pair<long unsigned int, double>> Stats::trackLocalMap_time;
-std::vector<std::pair<long unsigned int, double>> Stats::updateLocalMap_time;
-std::vector<std::pair<long unsigned int, double>> Stats::updateLocalKF_time;
-std::vector<std::pair<long unsigned int, double>> Stats::updateLocalPoints_time;
-std::vector<std::pair<long unsigned int, double>> Stats::searchLocalPoints_time;
-std::vector<std::pair<long unsigned int, double>> Stats::SLP_frameMapPointsItr_time;
-std::vector<std::pair<long unsigned int, double>> Stats::SLP_localMapPointsItr_time;
-std::vector<std::pair<long unsigned int, double>> Stats::SLP_searchByProjection_time;
-std::vector<std::pair<long unsigned int, double>> Stats::TLM_poseOptimization_time;
-std::vector<std::pair<long unsigned int, int>> Stats::num_local_mappoints;
-double Stats::orbExtraction_init_time = 0;
-double Stats::stereoMatch_init_time = 0;
-double Stats::searchLocalPoints_init_time = 0;
-double Stats::poseEstimation_init_time = 0;
-int Stats::num_frames_lost = 0;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::tracking_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::orbExtraction_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::stereoMatch_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::trackWithMotionModel_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::TWM_poseEstimation_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::TWM_poseOptimization_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::relocalization_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::trackLocalMap_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::updateLocalMap_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::updateLocalKF_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::updateLocalPoints_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::searchLocalPoints_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::SLP_frameMapPointsItr_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::SLP_localMapPointsItr_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::SLP_searchByProjection_time;
+// std::vector<std::pair<long unsigned int, double>> TrackingStats::TLM_poseOptimization_time;
+// std::vector<std::pair<long unsigned int, int>> TrackingStats::num_local_mappoints;
+// double TrackingStats::orbExtraction_init_time = 0;
+// double TrackingStats::stereoMatch_init_time = 0;
+// double TrackingStats::searchLocalPoints_init_time = 0;
+// double TrackingStats::poseEstimation_init_time = 0;
+// int TrackingStats::num_frames_lost = 0;
 
-void Stats::saveStats(const string &file_path) {
+void TrackingStats::saveStats(const string &file_path) {
 #ifdef REGISTER_STATS
     string data_path = file_path + "/data/";
     cout << "Writing stats data into file: " << data_path << '\n';
     if (mkdir(data_path.c_str(), 0755) == -1) {
-        std::cerr << "[Stats:] Error creating directory: " << strerror(errno) << std::endl;
+        std::cerr << "[TrackingStats:] Error creating directory: " << strerror(errno) << std::endl;
     }
 
     KernelController::saveKernelsStats(data_path);

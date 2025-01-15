@@ -58,9 +58,9 @@ void KernelController::initializeKernels(){
         mpPoseEstimationKernel->initialize();
 #ifdef REGISTER_STATS
     std::chrono::steady_clock::time_point PE_end = std::chrono::steady_clock::now();
-    Stats::stereoMatch_init_time = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(SM_end - SM_start).count();
-    Stats::searchLocalPoints_init_time = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(SLP_end - SLP_start).count();
-    Stats::poseEstimation_init_time = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(PE_end - PE_start).count();
+    TrackingStats::getInstance().stereoMatch_init_time = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(SM_end - SM_start).count();
+    TrackingStats::getInstance().searchLocalPoints_init_time = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(SLP_end - SLP_start).count();
+    TrackingStats::getInstance().poseEstimation_init_time = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(PE_end - PE_start).count();
 #endif
     checkCudaError(cudaDeviceSynchronize(), "[Kernel Controller:] Failed to initialize kernels.");
     memory_is_initialized = true;

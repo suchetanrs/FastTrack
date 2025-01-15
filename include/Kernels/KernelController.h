@@ -6,7 +6,7 @@
 #include "StereoMatchKernel.h"
 #include "CudaWrappers/CudaFrame.h"
 #include "CudaUtils.h"
-#include "../Stats.h"
+#include "../Stats/TrackingStats.h"
 #include <memory> 
 using namespace std; 
 

@@ -91,7 +91,7 @@ src/GeometricTools.cc
 src/TwoViewReconstruction.cc
 src/Config.cc
 src/Settings.cc
-src/Stats.cc
+src/Stats/TrackingStats.cc
 src/Kernels/CudaUtils.cu
 src/Kernels/CudaWrappers/CudaMapPoint.cc
 src/Kernels/CudaWrappers/CudaFrame.cu
@@ -134,7 +134,8 @@ include/TwoViewReconstruction.h
 include/SerializationUtils.h
 include/Config.h
 include/Settings.h
-include/Stats.h
+include/Stats/StatsInterface.h
+include/Stats/TrackingStats.h
 include/Kernels/CudaUtils.h
 include/Kernels/CudaWrappers/CudaMapPoint.h
 include/Kernels/CudaWrappers/CudaKeyPoint.h

@@ -25,7 +25,7 @@
 #include<opencv2/core/core.hpp>
 
 #include<System.h>
-#include<Stats.h>
+#include<Stats/TrackingStats.h>
 
 using namespace std;
 
@@ -159,7 +159,7 @@ int main(int argc, char **argv)
 
 #ifdef REGISTER_STATS
             t_track = t_resize + t_rect + std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(t2 - t1).count();
-            Stats::tracking_time.emplace_back(ni, t_track);
+            TrackingStats::getInstance().tracking_time.emplace_back(ni, t_track);
 #endif
 
 #ifdef REGISTER_TIMES
@@ -192,7 +192,7 @@ int main(int argc, char **argv)
     }
     // Stop all threads
     SLAM.Shutdown();
-    Stats::saveStats(strStatsFile);
+    TrackingStats::getInstance().saveStats(strStatsFile);
 
     // Save camera trajectory
     if (bFileName)

@@ -39,7 +39,7 @@
 #include "Viewer.h"
 #include "ImuTypes.h"
 #include "Settings.h"
-#include "Stats.h"
+#include "Stats/TrackingStats.h"
 
 
 namespace ORB_SLAM3

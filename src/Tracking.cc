@@ -29,7 +29,7 @@
 #include "MLPnPsolver.h"
 #include "GeometricTools.h"
 #include "Kernels/CudaUtils.h"
-#include "Stats.h"
+#include "Stats/TrackingStats.h"
 
 #include <iostream>
 
@@ -2973,8 +2973,8 @@ bool Tracking::TrackWithMotionModel()
     std::chrono::steady_clock::time_point TWM_end = std::chrono::steady_clock::now();
     double trackWithMotionModel = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(TWM_end - TWM_start).count();
     double poseEstimation = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(PE_end - PE_start).count();
-    Stats::trackWithMotionModel_time.emplace_back(mCurrentFrame.mnId, trackWithMotionModel);
-    Stats::TWM_poseEstimation_time.emplace_back(mCurrentFrame.mnId, poseEstimation);
+    TrackingStats::getInstance().trackWithMotionModel_time.emplace_back(mCurrentFrame.mnId, trackWithMotionModel);
+    TrackingStats::getInstance().TWM_poseEstimation_time.emplace_back(mCurrentFrame.mnId, poseEstimation);
 #endif
         if (mSensor == System::IMU_MONOCULAR || mSensor == System::IMU_STEREO || mSensor == System::IMU_RGBD)
             return true;
@@ -3022,9 +3022,9 @@ bool Tracking::TrackWithMotionModel()
     double trackWithMotionModel = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(TWM_end - TWM_start).count();
     double poseEstimation = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(PE_end - PE_start).count();
     double poseOptimization = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(PO_end - PO_start).count();
-    Stats::trackWithMotionModel_time.emplace_back(mCurrentFrame.mnId, trackWithMotionModel);
-    Stats::TWM_poseEstimation_time.emplace_back(mCurrentFrame.mnId, poseEstimation);
-    Stats::TWM_poseOptimization_time.emplace_back(mCurrentFrame.mnId, poseOptimization);
+    TrackingStats::getInstance().trackWithMotionModel_time.emplace_back(mCurrentFrame.mnId, trackWithMotionModel);
+    TrackingStats::getInstance().TWM_poseEstimation_time.emplace_back(mCurrentFrame.mnId, poseEstimation);
+    TrackingStats::getInstance().TWM_poseOptimization_time.emplace_back(mCurrentFrame.mnId, poseOptimization);
 #endif
 
     if(mbOnlyTracking)
@@ -3147,10 +3147,10 @@ bool Tracking::TrackLocalMap()
     double updateLocalMap = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(ULM_end - ULM_start).count();
     double searchLocalPoints = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(SLP_end - SLP_start).count();
     double poseOptimization = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(PO_end - PO_start).count();
-    Stats::trackLocalMap_time.emplace_back(mCurrentFrame.mnId, trackLocalMap);
-    Stats::updateLocalMap_time.emplace_back(mCurrentFrame.mnId, updateLocalMap);
-    Stats::searchLocalPoints_time.emplace_back(mCurrentFrame.mnId, searchLocalPoints);
-    Stats::TLM_poseOptimization_time.emplace_back(mCurrentFrame.mnId, poseOptimization);
+    TrackingStats::getInstance().trackLocalMap_time.emplace_back(mCurrentFrame.mnId, trackLocalMap);
+    TrackingStats::getInstance().updateLocalMap_time.emplace_back(mCurrentFrame.mnId, updateLocalMap);
+    TrackingStats::getInstance().searchLocalPoints_time.emplace_back(mCurrentFrame.mnId, searchLocalPoints);
+    TrackingStats::getInstance().TLM_poseOptimization_time.emplace_back(mCurrentFrame.mnId, poseOptimization);
 #endif
 
     // Decide if the tracking was succesful
@@ -3556,15 +3556,15 @@ void Tracking::SearchLocalPoints()
 #ifdef REGISTER_STATS  
     std::chrono::steady_clock::time_point SBP_end = std::chrono::steady_clock::now();
     double searchByProjection = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(SBP_end - SBP_start).count();
-    Stats::SLP_searchByProjection_time.emplace_back(mCurrentFrame.mnId, searchByProjection);
-    Stats::num_local_mappoints.emplace_back(mCurrentFrame.mnId, mvpLocalMapPoints.size());
+    TrackingStats::getInstance().SLP_searchByProjection_time.emplace_back(mCurrentFrame.mnId, searchByProjection);
+    TrackingStats::getInstance().num_local_mappoints.emplace_back(mCurrentFrame.mnId, mvpLocalMapPoints.size());
 #endif
     }
 #ifdef REGISTER_STATS  
     double firstItr = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(first_itr_end - first_itr_start).count();
     double secondItr = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(second_itr_end - second_itr_start).count();
-    Stats::SLP_frameMapPointsItr_time.emplace_back(mCurrentFrame.mnId, firstItr);
-    Stats::SLP_localMapPointsItr_time.emplace_back(mCurrentFrame.mnId, secondItr);
+    TrackingStats::getInstance().SLP_frameMapPointsItr_time.emplace_back(mCurrentFrame.mnId, firstItr);
+    TrackingStats::getInstance().SLP_localMapPointsItr_time.emplace_back(mCurrentFrame.mnId, secondItr);
 #endif
 }
 
@@ -3587,8 +3587,8 @@ void Tracking::UpdateLocalMap()
     std::chrono::steady_clock::time_point ULP_end = std::chrono::steady_clock::now();
     double updateLocalKF = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(ULK_end - ULK_start).count();
     double updateLocalPoints = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(ULP_end - ULP_start).count();
-    Stats::updateLocalKF_time.emplace_back(mCurrentFrame.mnId, updateLocalKF);
-    Stats::updateLocalPoints_time.emplace_back(mCurrentFrame.mnId, updateLocalPoints);
+    TrackingStats::getInstance().updateLocalKF_time.emplace_back(mCurrentFrame.mnId, updateLocalKF);
+    TrackingStats::getInstance().updateLocalPoints_time.emplace_back(mCurrentFrame.mnId, updateLocalPoints);
 #endif
 }
 
@@ -3814,7 +3814,7 @@ bool Tracking::Relocalization()
 #ifdef REGISTER_STATS
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     double relocalization = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(end - start).count();
-    Stats::relocalization_time.emplace_back(mCurrentFrame.mnId, relocalization);
+    TrackingStats::getInstance().relocalization_time.emplace_back(mCurrentFrame.mnId, relocalization);
 #endif
         return false;
     }
@@ -3963,7 +3963,7 @@ bool Tracking::Relocalization()
 #ifdef REGISTER_STATS
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     double relocalization = std::chrono::duration_cast<std::chrono::duration<double,std::milli> >(end - start).count();
-    Stats::relocalization_time.emplace_back(mCurrentFrame.mnId, relocalization);
+    TrackingStats::getInstance().relocalization_time.emplace_back(mCurrentFrame.mnId, relocalization);
 #endif
 
     if(!bMatch)
@@ -4111,7 +4111,7 @@ void Tracking::ResetActiveMap(bool bLocMap)
         index++;
     }
     cout << num_lost << " Frames set to lost" << endl;
-    Stats::num_frames_lost = num_lost;
+    TrackingStats::getInstance().num_frames_lost = num_lost;
 
     mlbLost = lbLost;
 

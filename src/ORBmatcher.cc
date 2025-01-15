@@ -30,7 +30,7 @@
 #include <chrono>
 
 #include "Kernels/KernelController.h"
-#include "Stats.h"
+#include "Stats/TrackingStats.h"
 
 using namespace std;
 
