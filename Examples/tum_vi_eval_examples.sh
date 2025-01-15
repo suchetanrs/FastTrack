@@ -10,13 +10,16 @@ poseOptimizationRunstatus=$5
 dataset_name=$6
 version=$7
 
-if [ "$poseOptimizationRunstatus" -eq 1 ]; then
-    statsDir="../Results/poseOptimization_on/${orbExtractionRunstatus}${stereoMatchRunstatus}${searchLocalPointsRunstatus}${poseEstimationRunstatus}/${dataset_name}/${version}"
-else
-    statsDir="../Results/poseOptimization_off/${orbExtractionRunstatus}${stereoMatchRunstatus}${searchLocalPointsRunstatus}${poseEstimationRunstatus}/${dataset_name}/${version}"
-fi
+# if [ "$poseOptimizationRunstatus" -eq 1 ]; then
+#     statsDir="../Results/poseOptimization_on/${orbExtractionRunstatus}${stereoMatchRunstatus}${searchLocalPointsRunstatus}${poseEstimationRunstatus}/${dataset_name}/${version}"
+# else
+#     statsDir="../Results/poseOptimization_off/${orbExtractionRunstatus}${stereoMatchRunstatus}${searchLocalPointsRunstatus}${poseEstimationRunstatus}/${dataset_name}/${version}"
+# fi
+
+statsDir="../Results/${version}/${dataset_name}"
 
 if [ ! -d "$statsDir" ]; then
+    echo $statsDir
     mkdir -p "$statsDir"
 fi
 
@@ -38,7 +41,6 @@ echo "Evaluation of ${dataset_name} trajectory with Stereo-Inertial sensor"
 python3 -W ignore ../evaluation/evaluate3.py "$pathDatasetTUM_VI"/dataset-${dataset_name}_512_16//mav0/mocap0/data.csv f_${file_name}.txt --plot ${dataset_name}_512_stereoi.pdf --verbose
 echo "Plotting data"
 python3 ../plot.py "${statsDir}"
-python3 ../plot_piechart.py "${statsDir}"
 
 files=("f_dataset-${dataset_name}_stereoi.csv"
 "f_dataset-${dataset_name}_stereoi.txt"
