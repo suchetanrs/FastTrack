@@ -51,7 +51,7 @@ Our system is based on ORB-SLAM3 and ORB-SLAM3 provides a script `build.sh` to b
 ```
 cd FastTrack
 chmod +x build.sh
-./build.sh
+sudo ./build.sh
 ```
 
 This will create **libORB_SLAM3.so**  at *lib* folder and the executables in *Examples* folder.
