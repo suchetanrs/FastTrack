@@ -102,4 +102,7 @@ borrar/*
 Examples/*.csv
 Examples/*.png
 
-*.py
+tracking_plot.py
+plot.py
+KFCulling_dist.py
+

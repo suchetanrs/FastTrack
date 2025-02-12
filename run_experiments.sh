@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-if [ $# -ne 2 ]; then
+if [ $# -ne 1 ]; then
     echo "Usage: $0 <version> <num_iterations>"
     exit 1
 fi
@@ -15,129 +15,26 @@ datasets=("MH01" "MH02" "V101" "V102" "room1" "room2" "corridor1" "corridor2")
 for i in $(seq 0 $(expr $num_itr - 1)); do
     for dataset in "${datasets[@]}"; do
         echo -e "[bash:] -> $dataset 0 0 0 0 pose_optimization=on $version.$i"
-        ./run_script.sh 0 0 0 0 1 $dataset $version.$i
-
-        echo -e "[bash:] -> $dataset 0 0 0 0 pose_optimization=off $version.$i"
-        ./run_script.sh 0 0 0 0 0 $dataset $version.$i
+        ./run_script.sh $dataset 0 1
     done
 done
 
-
-# for i in $(seq 0 $(expr $num_itr - 1)); do
-#     for dataset in "${datasets[@]}"; do
-#         echo -e "[bash:] -> $dataset 0 0 0 0 pose_optimization=on $version.$i"
-#         ./run_script.sh 0 0 0 0 1 $dataset $version.$i
-
-#         echo -e "[bash:] -> $dataset 1 1 1 1 pose_optimization=off $version.$i"
-#         ./run_script.sh 1 1 1 1 0 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 0 0 0 1 pose_optimization=on $version.$i"
-        # ./run_script.sh 0 0 0 1 1 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 0 0 1 0 pose_optimization=on $version.$i"
-        # ./run_script.sh 0 0 1 0 1 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 0 0 1 1 pose_optimization=on $version.$i"
-        # ./run_script.sh 0 0 1 1 1 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 0 1 0 0 pose_optimization=on $version.$i"
-        # ./run_script.sh 0 1 0 0 1 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 0 1 1 1 pose_optimization=on $version.$i"
-        # ./run_script.sh 0 1 1 1 1 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 1 0 0 0 pose_optimization=on $version.$i"
-        # ./run_script.sh 1 0 0 0 1 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 1 1 0 0 pose_optimization=on $version.$i"
-        # ./run_script.sh 1 1 0 0 1 $dataset $version.$i
-        
-        # echo -e "[bash:] -> $dataset 1 0 1 1 pose_optimization=on $version.$i"
-        # ./run_script.sh 1 0 1 1 1 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 1 1 1 1 pose_optimization=on $version.$i"
-        # ./run_script.sh 1 1 1 1 1 $dataset $version.$i
-
-
-
-        # echo -e "[bash:] -> $dataset 0 0 0 0 pose_optimization=off $version.$i"
-        # ./run_script.sh 0 0 0 0 0 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 0 0 0 1 pose_optimization=off $version.$i"
-        # ./run_script.sh 0 0 0 1 0 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 0 0 1 0 pose_optimization=off $version.$i"
-        # ./run_script.sh 0 0 1 0 0 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 0 0 1 1 pose_optimization=off $version.$i"
-        # ./run_script.sh 0 0 1 1 0 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 0 1 0 0 pose_optimization=off $version.$i"
-        # ./run_script.sh 0 1 0 0 0 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 0 1 1 1 pose_optimization=off $version.$i"
-        # ./run_script.sh 0 1 1 1 0 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 1 0 0 0 pose_optimization=off $version.$i"
-        # ./run_script.sh 1 0 0 0 0 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 1 1 0 0 pose_optimization=off $version.$i"
-        # ./run_script.sh 1 1 0 0 0 $dataset $version.$i
-        
-        # echo -e "[bash:] -> $dataset 1 0 1 1 pose_optimization=off $version.$i"
-        # ./run_script.sh 1 0 1 1 0 $dataset $version.$i
-
-        # echo -e "[bash:] -> $dataset 1 1 1 1 pose_optimization=off $version.$i"
-        # ./run_script.sh 1 1 1 1 0 $dataset $version.$i
-    # done
-# done
-
 # for dataset in "${datasets[@]}"; do
-#     python3 calculate_average_results.py Results/poseOptimization_on/0000/$dataset Results_average/$version/$dataset/poseOptimization_on/0000 $version
+#     log_file="Results/gpu_usage/gpu_usage_${dataset}.csv"
+#     echo "timestamp, gpu_utilization(%), memory_utilization(%)" > "$log_file"  # Add CSV header
 
-#     python3 calculate_average_results.py Results/poseOptimization_off/1111/$dataset Results_average/$version/$dataset/poseOptimization_off/1111 $version
+#     echo -e "[bash:] -> $dataset"
 
-    # python3 calculate_average_results.py Results/poseOptimization_on/0001/$dataset Results_average/$version/$dataset/poseOptimization_on/0001 $version
+#     # Start logging GPU utilization in the background
+#     (while true; do
+#         echo "$(date +%Y-%m-%d\ %H:%M:%S), $(nvidia-smi --query-gpu=utilization.gpu,utilization.memory --format=csv,noheader | tr -d ' %')" >> "$log_file"
+#         sleep 1
+#     done) &
+#     gpu_logger_pid=$!  # Store the PID of the background process
 
-    # python3 calculate_average_results.py Results/poseOptimization_on/0010/$dataset Results_average/$version/$dataset/poseOptimization_on/0010 $version
+#     # Run your script
+#     ./run_script.sh "$dataset" 1
 
-    # python3 calculate_average_results.py Results/poseOptimization_on/0011/$dataset Results_average/$version/$dataset/poseOptimization_on/0011 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_on/0100/$dataset Results_average/$version/$dataset/poseOptimization_on/0100 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_on/0111/$dataset Results_average/$version/$dataset/poseOptimization_on/0111 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_on/1000/$dataset Results_average/$version/$dataset/poseOptimization_on/1000 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_on/1100/$dataset Results_average/$version/$dataset/poseOptimization_on/1100 $version
-    
-    # python3 calculate_average_results.py Results/poseOptimization_on/1011/$dataset Results_average/$version/$dataset/poseOptimization_on/0010 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_on/1111/$dataset Results_average/$version/$dataset/poseOptimization_on/1111 $version
-
-    # python3 plot_comparison.py Results_average/$version/$dataset/poseOptimization_on Results_average_plots/$version/$dataset/poseOptimization_on
-
-
-
-    # python3 calculate_average_results.py Results/poseOptimization_off/0000/$dataset Results_average/$version/$dataset/poseOptimization_off/0000 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_off/0001/$dataset Results_average/$version/$dataset/poseOptimization_off/0001 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_off/0010/$dataset Results_average/$version/$dataset/poseOptimization_off/0010 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_off/0011/$dataset Results_average/$version/$dataset/poseOptimization_off/0011 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_off/0100/$dataset Results_average/$version/$dataset/poseOptimization_off/0100 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_off/0111/$dataset Results_average/$version/$dataset/poseOptimization_off/0111 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_off/1000/$dataset Results_average/$version/$dataset/poseOptimization_off/1000 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_off/1100/$dataset Results_average/$version/$dataset/poseOptimization_off/1100 $version
-    
-    # python3 calculate_average_results.py Results/poseOptimization_off/1011/$dataset Results_average/$version/$dataset/poseOptimization_off/0010 $version
-
-    # python3 calculate_average_results.py Results/poseOptimization_off/1111/$dataset Results_average/$version/$dataset/poseOptimization_off/1111 $version
-
-    # python3 plot_comparison.py Results_average/$version/$dataset/poseOptimization_off Results_average_plots/$version/$dataset/poseOptimization_off
+#     # Stop GPU logging once the script finishes
+#     kill "$gpu_logger_pid"
 # done

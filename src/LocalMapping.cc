@@ -934,8 +934,7 @@ void LocalMapping::KeyFrameCulling()
         last_ID = aux_KF->mnId;
     }
 
-
-
+    int itr = 0;
     for(vector<KeyFrame*>::iterator vit=vpLocalKeyFrames.begin(), vend=vpLocalKeyFrames.end(); vit!=vend; vit++)
     {
         count++;
@@ -949,6 +948,7 @@ void LocalMapping::KeyFrameCulling()
         const int thObs=nObs;
         int nRedundantObservations=0;
         int nMPs=0;
+        itr += vpMapPoints.size();
         for(size_t i=0, iend=vpMapPoints.size(); i<iend; i++)
         {
             MapPoint* pMP = vpMapPoints[i];
