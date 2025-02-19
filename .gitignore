@@ -102,7 +102,5 @@ borrar/*
 Examples/*.csv
 Examples/*.png
 
-tracking_plot.py
-plot.py
 KFCulling_dist.py
 
