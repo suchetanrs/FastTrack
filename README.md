@@ -1,13 +1,45 @@
 # FastTrack
 
-FastTrack is an optimized visual-inertial tracking module designed to harness GPU computing power, significantly speeding up the most computationally intensive aspects of SLAM (Simultaneous Localization and Mapping). Our implementation is based on the well-established ORB-SLAM3 system.
+FastTrack is an optimized tracking for ORB-SLAM3 that leverages GPU computing power to accelerate the time-consuming components of tracking and enhance the overall performance. These components include ORB extraction, stereo feature matching, and local map tracking. We implemented CUDA kernels to speed up these components. Our results demonstrate a significant reduction in tracking times, achieving up to 2.8× faster performance on desktop and up to 2.7× speedup on Xavier NX. We evaluated FastTrack on a mix of sequences from the EuRoC and TUM-VI datasets using the stereo-inertial configuration.
 
-## Key Features
-- GPU Acceleration: We've developed several GPU kernels to offload critical components of the tracking process, enhancing overall performance.
-- Stereo Feature Matching: Specialized kernels accelerate stereo feature matching for both pinhole and fisheye cameras.
-- Map Point Projection: Our implementation includes efficient GPU kernels for searching map points by projection, improving the discovery of visible map points in real-time.
-- Optimized ORB Feature Extraction: We integrate existing acceleration techniques for ORB feature extraction.
-- Efficient Data Handling: Our design includes optimized data transfer processes between tracking components and bypasses pose optimization to enhance speed.
+<p align="center"><strong>Figure 1: Tracking In FastTrack</strong></p>
+<p align="center">
+  <img src="https://github.com/sfu-rsl/FastTrack/blob/main/Tracking_in_FastTrack.png" alt="Tracking In FastTrack">
+</p>
+
+<div align="center">
+
+<strong>Table 1: Machine Specifications</strong>
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Machine</th>
+      <th>Specs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Desktop</td>
+      <td>
+        20-core Intel Core i7-12700K CPU @ 5.0 GHz <br>
+        NVIDIA RTX 3090 GPU (10496-core) <br>
+        64 GB RAM
+      </td>
+    </tr>
+    <tr>
+      <td>Xavier NX</td>
+      <td>
+        6-core ARM Carmel CPU @ 1.4 GHz <br>
+        NVIDIA Volta GPU (384-core) <br>
+        8 GB RAM
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
 
 
 # 2. Prerequisites
