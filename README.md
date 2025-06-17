@@ -2,6 +2,8 @@
 
 FastTrack is an optimized tracking for ORB-SLAM3 that leverages GPU computing power to accelerate the time-consuming components of tracking and enhance the overall performance. These components include ORB extraction, stereo feature matching, and local map tracking. We implemented CUDA kernels to speed up these components. Our results demonstrate a significant reduction in tracking times, achieving up to 2.8× faster performance on desktop and up to 2.7× speedup on Xavier NX. We evaluated FastTrack on a mix of sequences from the EuRoC and TUM-VI datasets using the stereo-inertial configuration.
 
+🚀 FastTrack has been accepted for publication at [IROS 2025](http://iros25.org/).
+
 <p align="center"><strong>Figure 1: Tracking In FastTrack</strong></p>
 <p align="center">
   <img src="https://github.com/sfu-rsl/FastTrack/blob/main/Tracking_in_FastTrack.png" alt="Tracking In FastTrack">
