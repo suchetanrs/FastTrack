@@ -1,5 +1,16 @@
 #!/bin/sh
 
+echo "Configuring and building Thirdparty/Pangolin ..."
+
+cd Thirdparty/Pangolin  
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-std=c++14 -DCMAKE_INSTALL_PREFIX=/usr/local ..
+make -j8 && make install
+
+cd ../../DBoW2
+
+
 echo "Configuring and building Thirdparty/DBoW2 ..."
 
 cd Thirdparty/DBoW2
