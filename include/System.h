@@ -197,10 +197,10 @@ public:
     void InsertTrackTime(double& time);
 #endif
 
-private:
-
     void SaveAtlas(int type);
     bool LoadAtlas(int type);
+
+private:
 
     string CalculateCheckSum(string filename, int type);
 
